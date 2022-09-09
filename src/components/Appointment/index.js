@@ -9,7 +9,14 @@ import './styles.scss'
 
 const Appointment =(props)=>{
 
-  return(<article className="appointment"></article>)
+  return(
+  <div>
+  <Header time={props.time}/>
+  {props.interview ?  <Show student={props.student}/>:<Empty />}
+ 
+  
+  <article className="appointment"></article>
+  </div>)
 }
 
 export default Appointment;

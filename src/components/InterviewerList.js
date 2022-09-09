@@ -3,7 +3,6 @@ import InterviewerListItem from "./InterviewerListItem";
 import './InterviewerList.scss'
 
 
-
 const InterviewerList =(props)=>{
 
   const listInterview =props.interviewers.map((interviewer,index)=>{
