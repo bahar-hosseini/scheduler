@@ -3,20 +3,20 @@ import Empty from "./Empty";
 import Header from "./Header";
 import Show from "./Show";
 
-
 import './styles.scss'
 
 
 const Appointment =(props)=>{
 
+
   return(
-  <div>
+  <>
   <Header time={props.time}/>
-  {props.interview ?  <Show student={props.student}/>:<Empty />}
  
   
+  {(props.interview) ? <Show student={props.interview.student} interviewer={props.interview.interviewer.name} /> : <Empty time={props.time} />}
   <article className="appointment"></article>
-  </div>)
+  </>)
 }
 
 export default Appointment;
