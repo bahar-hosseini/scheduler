@@ -41,3 +41,29 @@ export function getAppointmentsForDay(state, day) {
     }
   return interviewer;
   }
+  
+
+  ////////////////////////
+  export function getInterviewersForDay(state, day) {
+    let result = []
+  
+   if(state.days.length===0){
+    return [];
+   }
+  
+   const filterDay = state.days.filter(d=>d.name === day)
+   if(filterDay.length === 0){
+    return [];
+   }
+  
+   const dayApponintment = state.days.filter(d=>d.name === day && d)
+   const interviewers = dayApponintment[0].interviewers
+
+    for(const key in state.interviewers){
+      for(const i of interviewers){
+        i == key && result.push(state.interviewers[key])
+      }
+      }
+    return result;
+    };
+  
