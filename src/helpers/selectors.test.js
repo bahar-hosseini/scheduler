@@ -117,9 +117,16 @@ test("getInterviewersForDay returns an array with a length matching the number o
 });
 
 test("getInterviewersForDay returns an array containing the correct interviewer objects", () => {
-  const [first, second] = getInterviewersForDay(state, "Tuesday");
-  expect(first).toEqual(state.appointments["4"]);
-  expect(second).toEqual(state.appointments["5"]);
+  const result = getInterviewersForDay(state, "Tuesday");
+
+  expect(result).toEqual([{"id": 1,
+  "name": "Sylvia Palmer",
+  "avatar": "https://i.imgur.com/LpaY82x.png"
+},{
+  id: 2,
+  name: "Tori Malcolm",
+  avatar: "https://i.imgur.com/Nmx0Qxo.png"
+}]);
 });
 
 test("getInterviewersForDay returns an empty array when the days data is empty", () => {
