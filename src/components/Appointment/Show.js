@@ -1,7 +1,12 @@
 import React from "react";
 
 const Show =(props)=>{
+  const deleteInt =()=>{
+    props.onDelete()
+  }
+
   return(
+
     <main className="appointment__card appointment__card--show">
   <section className="appointment__card-left">
     <h2 className="text--regular">{props.student}</h2>
@@ -17,7 +22,7 @@ const Show =(props)=>{
         src="images/edit.png"
         alt="Edit"
       />
-      <img onClick={props.onDelete}
+      <img onClick={deleteInt}
         className="appointment__actions-button"
         src="images/trash.png"
         alt="Delete"

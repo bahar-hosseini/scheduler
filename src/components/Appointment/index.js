@@ -4,6 +4,8 @@ import Header from "./Header";
 import Show from "./Show";
 import Form from "./Form";
 import Status from "./Status";
+import Confirm from "./Confirm";
+
 
 
 
@@ -16,6 +18,8 @@ const EMPTY = "EMPTY";
 const SHOW = "SHOW";
 const CREATE = "CREATE";
 const SAVING = "SAVING";
+const DELETE = "DELETE";
+const CONFIRM = "CONFIRM"
 
 
 const Appointment =(props)=>{
@@ -36,6 +40,20 @@ const Appointment =(props)=>{
       transition(SHOW)
     // })
   }
+
+ 
+function deleteInterview(){
+// const  interview = null;
+transition(CONFIRM);
+  // props.cancelInterview(props.id,interview)
+  // transition(DELETE);
+}
+function confirmDelete(){
+  const  interview = null;
+    props.cancelInterview(props.id,interview)
+  transition(DELETE);
+}
+
   
   return(
     <>
@@ -47,6 +65,7 @@ const Appointment =(props)=>{
   <Show
     student={props.interview.student}
     interviewer={props.interview.interviewer.name}
+    onDelete={deleteInterview}
   />
 )}
 {mode === CREATE &&  <Form interviewers={props.interviewers} onCancel={()=>back()} onSave={save}/>}
@@ -54,6 +73,9 @@ const Appointment =(props)=>{
   <article className="appointment"></article>
 
 {mode === SAVING && <Status />}
+
+{mode ===CONFIRM && <Confirm onConfirm={confirmDelete} onCancel={()=>back()}/>}
+{mode === DELETE && <Empty />}
 
   </>)
 }

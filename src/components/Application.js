@@ -59,6 +59,31 @@ console.log('------',response)
   
 }
 
+
+const cancelInterview = (id,interview)=>{
+  const appointment = {
+    ...state.appointments[id],
+    interview:null
+  }
+  const appointments = {
+    ...state.appointments,
+    [id]: appointment
+  };
+  setState({
+    ...state,
+    appointments
+  });
+  axios.delete(`/api/appointments/${id}`,{interview})
+  .then((response)=>{
+    setState({
+      ...state,
+      appointments
+    });
+    console.log('********',response)
+  })
+}
+
+
 const resultAppointmentsForDay = getAppointmentsForDay(state,state.day)
 
 const ListAppointments = resultAppointmentsForDay.map((appointment,index)=>{
@@ -74,6 +99,7 @@ const interviewers =getInterviewersForDay(state,state.day)
       interview={interview}
       interviewers={interviewers}
       bookInterview={bookInterview}
+      cancelInterview={cancelInterview}
 />
   )
 }) 
