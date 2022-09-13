@@ -4,10 +4,12 @@ import InterviewerList from "components/InterviewerList";
 
 
 const Form =(props)=>{
+console.log(props)
+
   const [student, setStudent] = useState(props.student || "");
-  const [interviewer, setInterviewer] = useState(props.interviewer || null);
+  const [interviewer, setInterviewer] = useState(props.interviewer||null);
 
-
+console.log('^^^^^^^^^^^^^^^',interviewer)
   const reset =()=>{
     setStudent("")
     setInterviewer(null)

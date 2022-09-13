@@ -19,7 +19,8 @@ const SHOW = "SHOW";
 const CREATE = "CREATE";
 const SAVING = "SAVING";
 const DELETE = "DELETE";
-const CONFIRM = "CONFIRM"
+const CONFIRM = "CONFIRM";
+const EDIT = "EDIT";
 
 
 const Appointment =(props)=>{
@@ -54,6 +55,10 @@ function confirmDelete(){
   transition(DELETE);
 }
 
+const editForm =()=>{
+  transition(EDIT)
+}
+
   
   return(
     <>
@@ -66,6 +71,7 @@ function confirmDelete(){
     student={props.interview.student}
     interviewer={props.interview.interviewer.name}
     onDelete={deleteInterview}
+    onEdit={editForm}
   />
 )}
 {mode === CREATE &&  <Form interviewers={props.interviewers} onCancel={()=>back()} onSave={save}/>}
@@ -76,7 +82,10 @@ function confirmDelete(){
 
 {mode ===CONFIRM && <Confirm onConfirm={confirmDelete} onCancel={()=>back()}/>}
 {mode === DELETE && <Empty />}
-
+{mode === EDIT && 
+  <Form interviewers={props.interviewers} onCancel={()=>back()} onSave={save} student={props.interview.student}
+    interviewer={props.interview.interviewer.id}/>
+}
   </>)
 }
 

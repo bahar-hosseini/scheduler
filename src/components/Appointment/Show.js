@@ -4,6 +4,9 @@ const Show =(props)=>{
   const deleteInt =()=>{
     props.onDelete()
   }
+const editForm=()=>{
+  props.onEdit()
+}
 
   return(
 
@@ -17,7 +20,7 @@ const Show =(props)=>{
   </section>
   <section className="appointment__card-right">
     <section className="appointment__actions">
-      <img onClick={props.onEdit}
+      <img onClick={editForm}
         className="appointment__actions-button"
         src="images/edit.png"
         alt="Edit"
