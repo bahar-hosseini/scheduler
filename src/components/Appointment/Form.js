@@ -6,8 +6,7 @@ import InterviewerList from "components/InterviewerList";
 const Form =(props)=>{
   const [student, setStudent] = useState(props.student || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
-  console.log('=============',props.interviewers)
-  
+
 
   const reset =()=>{
     setStudent("")
@@ -17,7 +16,9 @@ const Form =(props)=>{
     reset()
     props.onCancel()
   }
-
+const interview  =()=>{
+  props.onSave(student,interviewer)
+}
 
 
 
@@ -33,8 +34,9 @@ const Form =(props)=>{
         placeholder="Enter Student Name"
         value={student}
         onChange={e=>setStudent(e.target.value)}
-        student={props.student}
-        onSave={e=>setStudent(e.target.value)}
+        // student={props.student}
+        // onSave={e=>setStudent(e.target.value)}
+   
       />
     </form>
     <InterviewerList 
@@ -48,7 +50,7 @@ const Form =(props)=>{
   <section className="appointment__card-right">
     <section className="appointment__actions">
       <Button danger onClick={cancel}>Cancel</Button>
-      <Button confirm onClick={props.onSave}>Save</Button>
+      <Button confirm onClick={interview }>Save</Button>
     </section>
   </section>
 </main>

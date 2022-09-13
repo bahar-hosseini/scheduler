@@ -32,10 +32,39 @@ useEffect(() => {
 });
 }, [])
 
+function bookInterview(id, interview) {
+  const appointment = {
+    ...state.appointments[id],
+    interview: { ...interview }
+  }
+  const appointments = {
+    ...state.appointments,
+    [id]: appointment
+  };
+
+  setState({
+    ...state,
+    appointments
+  });
+
+  axios.put(`/api/appointments/${id}`,{interview})
+  .then((response)=>{
+    setState({
+      ...state,
+      appointments
+    });
+console.log('------',response)
+  })
+  console.log('AAAAAA',id, interview);
+  
+}
+
 const resultAppointmentsForDay = getAppointmentsForDay(state,state.day)
+
 const ListAppointments = resultAppointmentsForDay.map((appointment,index)=>{
 const interview = getInterview(state, appointment.interview);
 const interviewers =getInterviewersForDay(state,state.day)
+
 
   return(
 <Appointment 
@@ -44,6 +73,7 @@ const interviewers =getInterviewersForDay(state,state.day)
       time={appointment.time}
       interview={interview}
       interviewers={interviewers}
+      bookInterview={bookInterview}
 />
   )
 }) 
