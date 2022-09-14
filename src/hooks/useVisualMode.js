@@ -6,9 +6,9 @@ export default function useVisualMode(initial) {
 
   function transition(second,replace = false) {
 if(replace){
-  // back()
-  setMode(second)
-  setHistory(prev=>[...prev]);
+  back()
+  // setMode(second)
+  // setHistory(prev=>[...prev]);
   // setHistory([initial,second]);
 }
 setMode(second)
@@ -17,7 +17,7 @@ setHistory(prev=>[...prev, second]);
   }
  
     function back() { 
-      if(history.length !== 0){
+      if(history.length > 1){
      history.pop()
      
       const pervMode = history[history.length-1]
