@@ -14,8 +14,10 @@ export function getAppointmentsForDay(state, day) {
  const appointment = dayApponintment[0].appointments
 
   for(const key in state.appointments){
-    for(const i of appointment){
-      i == key && result.push(state.appointments[key])
+    for(let i of appointment){
+     // to make i string
+      i = `${i}`
+      i === key && result.push(state.appointments[key])
     }
     }
   return result;
@@ -31,8 +33,8 @@ export function getAppointmentsForDay(state, day) {
     }
   
     for(const key in  state.interviewers){
-  
-      if (key == interview.interviewer){
+     // to make interview.interviewer string
+      if (key === `${interview.interviewer}`){
   interviewer['student']=interview['student']
   interviewer["interviewer"]=state.interviewers[key]
   // console.log(state.interviewers[key])
@@ -60,8 +62,10 @@ export function getAppointmentsForDay(state, day) {
    const interviewers = dayApponintment[0].interviewers
 
     for(const key in state.interviewers){
-      for(const i of interviewers){
-        i == key && result.push(state.interviewers[key])
+      for(let i of interviewers){
+        // to make i string
+        i = `${i}`
+        i === key && result.push(state.interviewers[key])
       }
       }
     return result;

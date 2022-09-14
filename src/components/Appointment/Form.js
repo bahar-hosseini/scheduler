@@ -4,25 +4,39 @@ import InterviewerList from "components/InterviewerList";
 
 
 const Form =(props)=>{
-console.log(props)
+// console.log(props)
 
-  const [student, setStudent] = useState(props.student || "");
+  const [name, setName] = useState(props.student || "");
   const [interviewer, setInterviewer] = useState(props.interviewer||null);
+  const [error, setError] = useState("")
 
-console.log('^^^^^^^^^^^^^^^',interviewer)
+// console.log('^^^^^^^^^^^^^^^',interviewer)
   const reset =()=>{
-    setStudent("")
+    setName("")
     setInterviewer(null)
   }
   const cancel =()=>{
     reset()
     props.onCancel()
   }
-const interview  =()=>{
-  props.onSave(student,interviewer)
+// const interview  =()=>{
+//   props.onSave(name,interviewer)
+// }
+
+
+function validate() {
+  if (name === "") {
+    setError("Student name cannot be blank");
+    return;
+  }
+
+  if (interviewer === null) {
+    setError("Please select an interviewer");
+    return;
+  }
+
+  props.onSave(name, interviewer);
 }
-
-
 
   return(
 <main className="appointment__card appointment__card--create">
@@ -31,15 +45,16 @@ const interview  =()=>{
       <input
         className="appointment__create-input text--semi-bold"
         name="name"
-        interviewers={props.interviewers}
         type="text"
         placeholder="Enter Student Name"
-        value={student}
-        onChange={e=>setStudent(e.target.value)}
+        value={name}
+        interviewers={props.interviewers}
+        onChange={e=>setName(e.target.value)}
+        data-testid="student-name-input"
         // student={props.student}
         // onSave={e=>setStudent(e.target.value)}
-   
       />
+      <section className="appointment__validation">{error}</section>
     </form>
     <InterviewerList 
     interviewer={props.interviewer}
@@ -52,7 +67,7 @@ const interview  =()=>{
   <section className="appointment__card-right">
     <section className="appointment__actions">
       <Button danger onClick={cancel}>Cancel</Button>
-      <Button confirm onClick={interview }>Save</Button>
+      <Button confirm onClick={validate}>Save</Button>
     </section>
   </section>
 </main>

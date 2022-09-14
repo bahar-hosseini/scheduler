@@ -1,7 +1,6 @@
 import React from "react";
 
 const Status=(props)=>{
-
   return(
     <main className="appointment__card appointment__card--status">
   <img
@@ -14,4 +13,4 @@ const Status=(props)=>{
   )
 }
 
-export default Status;
+export default Status

@@ -1,10 +1,11 @@
-import React,{useEffect} from "react";
+import React from "react";
 import Empty from "./Empty";
 import Header from "./Header";
 import Show from "./Show";
 import Form from "./Form";
 import Status from "./Status";
 import Confirm from "./Confirm";
+import Error from "./Error";
 
 
 
@@ -21,6 +22,9 @@ const SAVING = "SAVING";
 const DELETE = "DELETE";
 const CONFIRM = "CONFIRM";
 const EDIT = "EDIT";
+const ERROR_SAVE = "ERROR_SAVE";
+const ERROR_DELETE = "ERROR_DELETE"
+
 
 
 const Appointment =(props)=>{
@@ -30,34 +34,38 @@ const Appointment =(props)=>{
   );
 
 
-  function save(student, interviewer) {
+ function save(student, interviewer) {
     const interview = {
       student,
       interviewer
     };
     transition(SAVING)
-    props.bookInterview(props.id,interview)
-    // .then(()=>{
-      transition(SHOW)
-    // })
+   props.bookInterview(props.id,interview)
+  //  transition(SHOW)
+    .then(()=>transition(SHOW))
+    .catch(()=>transition(ERROR_SAVE, true));
   }
 
  
 function deleteInterview(){
 // const  interview = null;
 transition(CONFIRM);
-  // props.cancelInterview(props.id,interview)
-  // transition(DELETE);
+
 }
 function confirmDelete(){
-  const  interview = null;
-    props.cancelInterview(props.id,interview)
-  transition(DELETE);
+  // const  interview = null;
+  transition(DELETE,true)
+    props
+    .cancelInterview(props.id)
+    .then(()=>transition(EMPTY))
+    .catch(()=>transition(ERROR_DELETE,true));
 }
 
 const editForm =()=>{
   transition(EDIT)
 }
+
+
 
   
   return(
@@ -78,14 +86,17 @@ const editForm =()=>{
   
   <article className="appointment"></article>
 
-{mode === SAVING && <Status />}
+{mode === SAVING && <Status message="Saving"/>}
 
 {mode ===CONFIRM && <Confirm onConfirm={confirmDelete} onCancel={()=>back()}/>}
-{mode === DELETE && <Empty />}
+{mode === DELETE && <Status message='Deleting' />}
 {mode === EDIT && 
   <Form interviewers={props.interviewers} onCancel={()=>back()} onSave={save} student={props.interview.student}
     interviewer={props.interview.interviewer.id}/>
 }
+
+{mode === ERROR_SAVE && <Error message="Error: Can not save" onClose={()=>back()}/>}
+{mode === ERROR_DELETE && <Error message="Error: Can not delete" onClose={()=>back()}/>}
   </>)
 }
 

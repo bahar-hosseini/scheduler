@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import classNames from "classnames";
 import './InterviewerListItem.scss'
 
 const InterviewerListItem =(props)=>{
 
-const[interviewer,setInterviewer]=useState()
+// const[interviewer,setInterviewer]=useState()
 
 const listIntervieweListItem =classNames("interviewers__item",
 {
