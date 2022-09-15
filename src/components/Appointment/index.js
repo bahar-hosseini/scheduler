@@ -69,7 +69,7 @@ const editForm =()=>{
   
   return(
     <>
-  
+  <article className="appointment" data-testid="appointment">
   <Header time={props.time}/>
   
   {mode === EMPTY && <Empty onAdd={() => transition(CREATE)}  />}
@@ -83,7 +83,7 @@ const editForm =()=>{
 )}
 {mode === CREATE &&  <Form interviewers={props.interviewers} onCancel={()=>back()} onSave={save}/>}
   
-  <article className="appointment"></article>
+ 
 
 {mode === SAVING && <Status message="Saving"/>}
 
@@ -96,6 +96,7 @@ const editForm =()=>{
 
 {mode === ERROR_SAVE && <Error message="Error: Can not save" onClose={()=>back()}/>}
 {mode === ERROR_DELETE && <Error message="Error: Can not delete" onClose={()=>back()}/>}
+</article>
   </>)
 }
 

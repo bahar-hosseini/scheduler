@@ -77,8 +77,6 @@ const days = updateSpots(appointments)
 };
 
 
-
-
 const cancelInterview = (id,interview)=>{
   const appointment = {
     ...state.appointments[id],
@@ -92,7 +90,6 @@ const cancelInterview = (id,interview)=>{
 
 return axios.delete(`/api/appointments/${id}`,{interview})
   .then(()=>{
-    // updateSpots()
     setState({
       ...state,
       appointments,
