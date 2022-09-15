@@ -2,7 +2,7 @@ import {useState, useEffect} from "react";
 import axios from 'axios'
 
 
-export default function useApplicationData(props) {
+export default function useApplicationData() {
 
 const[state,setState] = useState({
   day: "Monday",
@@ -28,67 +28,53 @@ useEffect(() => {
 
 ////// SPOT FUNCTIONS ///////
 
-const countSpot =()=>{
-  const currentDay = state.days.find((day) => day.name === state.day);
-  console.log('day correct?',currentDay)
-const arrayOfAppointments=currentDay.appointments;
+const countSpot =(day,apointments)=>{
 
-  const apptList = arrayOfAppointments.map((id) => state.appointments[id]);
-  console.log('?????',apptList)
-  const freeApts = apptList.filter((id) => state.appointments[id].interview === null);
-  const amountFreeApts = freeApts.length;
-
-  return amountFreeApts;
-
+  let spots = 0;
+  for(const apptId of day.appointments){
+    if(apointments[apptId].interview==null){
+      spots++
+    }
+  }
+  return spots
 }
 
-const updateSpots = () => {
-  const currentDay = state.days.find((day) => day.name === state.day);
-  const currentDayIndex = state.days.findIndex((day) => day.name === state.day);
+const updateSpots = (apointments) => {
 
-  const updatedDay = { ...currentDay, spots: countSpot() };
 
-  const updatedDays = [...state.days];
-  updatedDays[currentDayIndex] = updatedDay;
+const newlyCalculatedDays = state.days.map((day)=>{
+  return {
+    ...day,
+    spots: countSpot(day,apointments)
+  }
+})
+return newlyCalculatedDays;
 
-  const updatedState = { ...state, days: updatedDays };
-
-  return updatedState;
 };
 
 ////////////////////////////
 function bookInterview(id, interview) {
-  // console.log('id /apointments:',id)
-// console.log('test',state["days"][id-1].appointments)
-  const appointment = {
-    ...state.appointments[id],
-    interview: { ...interview }
-  }
-  const appointments = {
-    ...state.appointments,
-    [id]: appointment
-  };
 
-  // setState({
-  //   ...state,
-  //   appointments
-  // });
 
-  axios.put(`/api/appointments/${id}`,{interview})
+const appointment = {
+  ...state.appointments[id],
+  interview: { ...interview }
+}
+const appointments = {
+  ...state.appointments,
+  [id]: appointment
+};
+const days = updateSpots(appointments)
+
+  return axios.put(`/api/appointments/${id}`,{interview})
   .then((response)=>{
-    updateSpots()
     setState({
       ...state,
       appointments,
+      days
     });
-console.log('------',response)
   })
-  // .catch((error)=>{
-  //   console.log(error)
-  //     })
-  console.log('AAAAAA',id, interview);
-
-}
+};
 
 
 
@@ -102,22 +88,17 @@ const cancelInterview = (id,interview)=>{
     ...state.appointments,
     [id]: appointment
   };
-  // setState({
-  //   ...state,
-  //   appointments
-  // });
-  
-  axios.delete(`/api/appointments/${id}`,{interview})
-  .then((response)=>{
-    updateSpots(state)
+  const days = updateSpots(appointments)
+
+return axios.delete(`/api/appointments/${id}`,{interview})
+  .then(()=>{
+    // updateSpots()
     setState({
       ...state,
       appointments,
+      days
     });
-    console.log('********',response)
-  })
-  .catch((error)=>{
-console.log(error)
+
   })
 }
 

@@ -41,7 +41,6 @@ const Appointment =(props)=>{
     };
     transition(SAVING)
    props.bookInterview(props.id,interview)
-  //  transition(SHOW)
     .then(()=>transition(SHOW))
     .catch(()=>transition(ERROR_SAVE, true));
   }
