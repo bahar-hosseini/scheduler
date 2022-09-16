@@ -9,8 +9,6 @@ const listIntervieweListItem =classNames("interviewers__item",
   "interviewers__item--selected":props.selected
 }
 )
-
-
   return(
   <li className={listIntervieweListItem} onClick={props.setInterviewer}>
   <img

@@ -11,7 +11,6 @@ const[state,setState] = useState({
   interviewers:{}
 })
 
-
 const setDay = day => setState({ ...state, day });
 
 useEffect(() => {
@@ -26,7 +25,9 @@ useEffect(() => {
 }, [])
 
 
-////// SPOT FUNCTIONS ///////
+/**
+ ** SPOT Function
+*/
 
 const countSpot =(day,apointments)=>{
 
@@ -52,9 +53,12 @@ return newlyCalculatedDays;
 
 };
 
-////////////////////////////
-function bookInterview(id, interview) {
 
+/**
+ ** Book Interview Function
+*/
+
+function bookInterview(id, interview) {
 
 const appointment = {
   ...state.appointments[id],
@@ -76,6 +80,10 @@ const days = updateSpots(appointments)
   })
 };
 
+
+/**
+ ** Cancel Interview
+*/
 
 const cancelInterview = (id,interview)=>{
   const appointment = {

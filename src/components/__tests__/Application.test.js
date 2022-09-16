@@ -18,7 +18,9 @@ describe("Application", () => {
     });
   });
 
-
+/**
+ ** Book appointment
+*/
   it("loads data, books an interview and reduces the spots remaining for Monday by 1", async () => {
     const { container } = render(<Application />);
   
@@ -47,7 +49,9 @@ describe("Application", () => {
     expect(getByText(day, "no spots remaining")).toBeInTheDocument();
   });
 
-
+/**
+ ** Cancel appointment
+*/
 
   it("loads data, cancels an interview and increases the spots remaining for Monday by 1", async () => {
 
@@ -83,7 +87,9 @@ describe("Application", () => {
   });
 
 
-
+/**
+ ** Edit appointment
+*/
   it("loads data, edits an interview and keeps the spots remaining for Monday the same", async() => {
     const { container } = render(<Application />);
     
@@ -115,6 +121,10 @@ describe("Application", () => {
 
   });
 
+/**
+ ** Show - Error
+*/
+
   it("shows the save error when failing to save an appointment", async() => {
     const { container } = render(<Application />);
   
@@ -143,7 +153,9 @@ describe("Application", () => {
 
   });
 
-
+/**
+ ** Error - Delete
+*/
   it("shows the delete error when failing to delete an existing appointment", async() => {
     const { container } = render(<Application />);
     axios.delete.mockRejectedValueOnce();

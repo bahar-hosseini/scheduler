@@ -1,5 +1,8 @@
 import React from "react";
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////// Internal Modules
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 import "components/Application.scss";
 import DayList from "./DayList";
 import Appointment from "components/Appointment";
@@ -7,11 +10,10 @@ import {getAppointmentsForDay,getInterview,getInterviewersForDay} from "../helpe
 import useApplicationData from "hooks/useApplicationData";
 
 
-
-
-
+/**
+ ** Application component
+*/
 export default function Application(props) {
-
   const {
     state,
     setDay,
@@ -40,8 +42,6 @@ const interviewers =getInterviewersForDay(state,state.day)
 />
   )
 }) 
-
-
   return (
     <main className="layout">
       <section className="sidebar">

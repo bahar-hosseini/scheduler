@@ -1,3 +1,7 @@
+/**
+ ** getAppointmentsForDay
+*/
+
 export function getAppointmentsForDay(state, day) {
   let result = []
 
@@ -24,7 +28,9 @@ export function getAppointmentsForDay(state, day) {
   };
 
 
-  /////////////////////////////
+/**
+ ** getInterview
+*/
   export function getInterview(state, interview){
 
     const interviewer = {};
@@ -33,11 +39,9 @@ export function getAppointmentsForDay(state, day) {
     }
   
     for(const key in  state.interviewers){
-     // to make interview.interviewer string
       if (key === `${interview.interviewer}`){
   interviewer['student']=interview['student']
   interviewer["interviewer"]=state.interviewers[key]
-  // console.log(state.interviewers[key])
       }
   
     }
@@ -45,7 +49,9 @@ export function getAppointmentsForDay(state, day) {
   }
   
 
-  ////////////////////////
+/**
+ ** getInterviewersForDay
+*/
   export function getInterviewersForDay(state, day) {
     let result = []
   

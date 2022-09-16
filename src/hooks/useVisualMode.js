@@ -7,9 +7,6 @@ export default function useVisualMode(initial) {
   function transition(second,replace = false) {
 if(replace){
   back()
-  // setMode(second)
-  // setHistory(prev=>[...prev]);
-  // setHistory([initial,second]);
 }
 setMode(second)
 setHistory(prev=>[...prev, second]);
